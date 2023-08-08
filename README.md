@@ -12,6 +12,10 @@ Provisioning is done using Terraform, after resources get provisioned, they are 
 
 All services have their domains/subdomains and certificats registered in Cloudflare.
 
+### Prerequisites for Deployment
+Before deploying, take actions to complete prerequisites as described below.
+
+#### Prerequisite: .env file
 To successfully deploy this project, you need your own `.env` file that covers all needed environmental variables for Terraform.
 
 Example `.env` file:
@@ -28,7 +32,7 @@ export TF_VAR_cloudflare_zone_id=<cloudflare zone ID>
 export TF_VAR_domain_name="your_domain_name.com"
 ```
 
-### Dependencies
+#### Prerequisite: Package Dependencies
 Dependencies to install are:
 - terraform
 - ansible
@@ -53,3 +57,16 @@ Compiled with: liblua-5.4.6 openssl-3.1.1 libssh2-1.10.0 libz-1.2.13 libpcre-8.4
 Compiled without:
 Available nsock engines: epoll poll select
 ```
+
+### Deployment
+
+After completing `Prerequisites for Deployment`, source the `.env` file and the only commands you need are:
+```
+terraform plan
+```
+and
+```
+terraform apply
+```
+
+Enjoy!
