@@ -1,6 +1,12 @@
 # mcserver-automated
 
-IaC that provisions Google Cloud infrastructure:
+<p float="left" align="center">
+  <img style="width:25%;height:25%;" src="https://static-00.iconduck.com/assets.00/file-type-terraform-icon-455x512-csyun60o.png">
+  <img style="width:35%;height:35%;" src="https://extremeautomation.io/static/9257437713a85f3e9e5cb6e7ff7bb507/ansible.svg">
+</p>
+
+### Description
+IaC project that provisions infrastructure on Google Cloud:
 - A Minecraft Server Management tool
 - Systemd service (for server management tool)
 - Nginx reverse proxy
