@@ -1,0 +1,53 @@
+---
+- name: Install git
+  apt:
+    name: git
+    state: present
+    update_cache: yes
+- name: Clone repo
+  ansible.builtin.git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_path }}"
+    single_branch: yes
+    version: master
+    force: yes
+
+- name: Create .env file inside source code
+  ansible.builtin.file:
+    path: "{{ app_path }}src/.env"
+    state: touch
+    mode: u+rw,g-wx,o-wx
+
+- name: Fill .env file
+  shell: |
+    sudo tee {{ app_path }}src/.env << EOF
+      export PATH=$PATH:/usr/local/go/bin
+      export TEMPLATE_PATH="{{ app_path }}src/templates/"
+      export LOGS_PATH="{{ app_path }}src/mcdata/logs/latest.log"
+    EOF
+
+- name: Compile go code
+  make:
+    chdir: "{{ app_path }}src/"
+    target: build
+
+- name: Copy systemd configuration
+  copy:
+    src: mcmanager.service
+    dest: /etc/systemd/system/
+
+- name: Force systemd to reread configs
+  ansible.builtin.shell: systemctl daemon-reload
+
+- name: Enable the Server Manager service
+  ansible.builtin.systemd:
+    name: mcmanager.service
+    enabled: true
+    state: started
+    daemon_reload: true
+
+
+- name: Copy minecraft server to remote node
+  copy:
+    src: files/mcdata/
+    dest: "{{ app_path }}src/mcdata/"

@@ -1,0 +1,8 @@
+---
+- name: Setup load balancer
+  hosts: all
+  remote_user: admin
+  become: yes
+  
+  roles:
+  - nginx

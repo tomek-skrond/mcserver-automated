@@ -1,0 +1,11 @@
+---
+- name: Deploy app
+  hosts: all
+  remote_user: admin
+  become: yes
+  
+  roles:
+  - docker
+  - golang
+  - mcserver
+  - nginx

@@ -1,0 +1,44 @@
+---
+- name: Install apt
+  apt:
+    name: aptitude
+    state: latest
+    update_cache: true
+- name: Install dependencies for Docker
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: latest
+    update_cache: true
+- name: Add GPG keys
+  apt_key:
+    url: "{{ docker_gpg_url }}"
+    state: present
+- name: Add Docker repos
+  apt_repository:
+    repo: deb https://download.docker.com/linux/{{ vm_distro }} {{ ansible_distribution_release }} stable
+    state: present
+- name: Apt update and install Docker/Docker Engine/compose
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+- name: Enable docker
+  ansible.builtin.systemd:
+    enabled: true
+    name: docker
+- name: Start docker
+  ansible.builtin.systemd:
+    state: started
+    name: docker
+- name: Add remote user to docker group
+  user:
+    name: "{{ vm_main_profile }}" #adjust later - dynamic mapping of variable from terraform - for now the value is fixed
+    group: docker
+    append: yes

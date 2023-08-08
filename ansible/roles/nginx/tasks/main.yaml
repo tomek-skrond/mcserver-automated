@@ -1,0 +1,15 @@
+---
+- name: Install nginx
+  apt: name=nginx update_cache=yes
+
+- name: Copy nginx config
+  copy: src=files/site.conf dest=/etc/nginx/sites-available/default
+
+- name: enable configuration
+  file: >
+    dest=/etc/nginx/sites-enabled/default
+    src=/etc/nginx/sites-available/default
+    state=link
+
+- name: Restart nginx
+  service: name=nginx state=restarted

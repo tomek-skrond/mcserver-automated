@@ -1,0 +1,15 @@
+[Unit]
+Description=Minecraft Server Manager
+After=multi-user.target
+
+[Service]
+User=admin
+Environment=PATH=$PATH:/usr/local/go/bin
+Environment=TEMPLATE_PATH=/home/admin/mc-server/src/templates/
+Environment=LOGS_PATH=/home/admin/mc-server/src/mcdata/logs/latest.log
+WorkingDirectory=/home/admin/mc-server/src/
+ExecStart=/home/admin/mc-server/src/runner
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

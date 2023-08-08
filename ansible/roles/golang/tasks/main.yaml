@@ -1,0 +1,18 @@
+---
+- name: Install make
+  apt:
+    pkg:
+      - make
+- name: Download go 1.20.6
+  ansible.builtin.get_url:
+    url: https://go.dev/dl/go1.20.6.linux-amd64.tar.gz
+    dest: /home/admin/
+    mode: '0644'
+- name: Install go
+  ansible.builtin.shell:
+    cmd: rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.6.linux-amd64.tar.gz
+    chdir: /home/admin/
+- name: Add a go binary dir to system-wide $PATH.
+  copy:
+    dest: /etc/profile.d/gopath.sh
+    content: 'PATH=$PATH:/usr/local/go/bin'
