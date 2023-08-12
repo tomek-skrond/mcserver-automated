@@ -12,11 +12,11 @@ IaC project that provisions infrastructure on Google Cloud:
 - Nginx reverse proxy
 - Domain registration for website (creating DNS records)
 
-You can view code for the my server management tool (`docker-runner-api`) [this repo](https://github.com/tomek-skrond/docker-runner-api).
+You can view code for my server management tool (`docker-runner-api`) [this repo](https://github.com/tomek-skrond/docker-runner-api).
 
 Provisioning is done using Terraform, after resources get provisioned, they are configured by Ansible.
 
-All services have their domains/subdomains and certificats registered in Cloudflare.
+All services have their domains/subdomains and certificates registered in Cloudflare.
 
 ### Prerequisites for Deployment
 Before deploying, take actions to complete prerequisites as described below.
