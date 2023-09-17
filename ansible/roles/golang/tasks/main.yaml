@@ -1,8 +1,9 @@
 ---
-- name: Install make
+- name: Install pkgs
   apt:
     pkg:
       - make
+      - rsync
 - name: Download go 1.20.6
   ansible.builtin.get_url:
     url: https://go.dev/dl/go1.20.6.linux-amd64.tar.gz

@@ -37,6 +37,7 @@ Dependencies to install are:
 - terraform
 - ansible
 - nmap
+- rsync
 
 ```
 $ terraform -version

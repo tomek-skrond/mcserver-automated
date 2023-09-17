@@ -3,11 +3,6 @@ resource "google_compute_address" "mcserver" {
   region = var.region
 }
 
-resource "google_compute_address" "elkstack" {
-  name   = "elstack-static-ip"
-  region = var.region
-}
-
 resource "google_compute_address" "lb" {
   name   = "lb-static-ip"
   region = var.region

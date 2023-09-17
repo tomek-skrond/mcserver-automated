@@ -32,7 +32,7 @@
     target: build
 
 - name: Copy systemd configuration
-  copy:
+  synchronize:
     src: mcmanager.service
     dest: /etc/systemd/system/
 
@@ -48,6 +48,6 @@
 
 
 - name: Copy minecraft server to remote node
-  copy:
+  synchronize:
     src: files/mcdata/
     dest: "{{ app_path }}src/mcdata/"
