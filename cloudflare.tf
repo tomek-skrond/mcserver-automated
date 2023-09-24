@@ -3,7 +3,7 @@ resource "cloudflare_record" "root_domain" {
     name = "@"
     value = google_compute_instance.mcserver.network_interface.0.access_config.0.nat_ip
     type = "A"
-    proxied = true
+    proxied = false
 }
 
 # resource "cloudflare_record" "mcserver_subdomain" {
