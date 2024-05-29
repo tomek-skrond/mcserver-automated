@@ -35,25 +35,20 @@ resource "google_compute_instance" "mcserver" {
     }
   }
 
-  provisioner "local-exec" {
+}
+
+resource "null_resource" "wait_for_instance" {
+    provisioner "local-exec" {
+    # interpreter = ["/bin/bash"]
     command = <<-EOT
-    while [ 1 ]; do
-      if [ "$(nmap -Pn -p22 ${google_compute_instance.mcserver.network_interface.0.access_config.0.nat_ip} | head -n -2 | tail -n +6 | awk '{print $2}')" == "open" ]; then
-        echo "OPEN"
-          ssh-keyscan -H ${google_compute_instance.mcserver.network_interface.0.access_config.0.nat_ip} >> ~/.ssh/known_hosts
-          ansible-playbook -i ${google_compute_instance.mcserver.network_interface.0.access_config.0.nat_ip}, --private-key ${var.privkey_ansible} ansible/setup_mcserver.yaml
-          break
-          exit 0
-      else
-        echo "NOT OPEN"
-        sleep 2
-      fi
-    done
+      ssh-keyscan -H ${google_compute_address.mcserver.address} >> ~/.ssh/known_hosts
+      ansible-playbook -i ${google_compute_address.mcserver.address}, --private-key ${var.privkey_ansible} ansible/setup_mcserver.yaml
     EOT
   }
-    timeouts {
-    create = "20m"
-    update = "2h"
-    delete = "20m"
-  }
+  #   timeouts {
+  #   create = "20m"
+  #   update = "2h"
+  #   delete = "20m"
+  # }
+  depends_on = [google_compute_instance.mcserver]
 }

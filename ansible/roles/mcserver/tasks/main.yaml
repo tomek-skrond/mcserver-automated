@@ -47,7 +47,7 @@
     daemon_reload: true
 
 
-- name: Copy minecraft server to remote node
-  synchronize:
-    src: files/mcdata/
-    dest: "{{ app_path }}src/mcdata/"
+# - name: Copy minecraft server to remote node
+#   synchronize:
+#     src: files/mcdata/
+#     dest: "{{ app_path }}src/mcdata/"

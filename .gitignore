@@ -1,6 +1,8 @@
 tmp
 tmp/
 .env
+.terraform.lock.hcl
+
 # Local .terraform directories
 **/.terraform/*
 
