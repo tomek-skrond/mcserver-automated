@@ -41,6 +41,7 @@ resource "null_resource" "wait_for_instance" {
     provisioner "local-exec" {
     # interpreter = ["/bin/bash"]
     command = <<-EOT
+      sleep 3m
       ssh-keyscan -H ${google_compute_address.mcserver.address} >> ~/.ssh/known_hosts
       ansible-playbook -i ${google_compute_address.mcserver.address}, --private-key ${var.privkey_ansible} ansible/setup_mcserver.yaml
     EOT
